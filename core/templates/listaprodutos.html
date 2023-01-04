@@ -1,0 +1,76 @@
+{%extends 'base.html'%}
+{%block content%}
+<div class="lista container mb-5 bg-dark" style="border-radius: 15px; margin-top: 8rem;">
+  <center>
+    <h2 class="text-light">Produtos</h2>
+<!--    botão de anunciar-->
+      {%if user.is_anonymous%}
+     <form action="\conta\login" method="GET">
+      <button class="btn btn-success" type="submit">Anunciar</button>
+     </form>
+      {%else%}
+      <form action="{%url 'add'%}" method="GET">
+      <button class="btn btn-success" type="submit">Anunciar</button>
+     </form>
+     {%endif%}
+    <!--botão de anunciar fim-->
+
+
+<div class="row d-flex justify-content-center p-4">
+{%block listas%}
+  {%for produto in produtos%}
+
+  <div class="col-12 col-lg-4 ">
+    <div class="produto card bg-primary"  name='produto' style=" width: 17rem; margin-top: 20px; margin-bottom:20px; height:27rem; border-radius:15px; padding: 5px;">
+
+      <div class="card-body">
+        <center>
+            <h6 class="text-light">{{produto.vendedor.nome}} {{produto.vendedor.sobrenome}}</h6>
+        <h5 class="card-title text-light" style="margin-top:17rem;;"><b>{{produto.nome}}</b></h5>
+        <p>R$ {{produto.preco}}</p>
+
+        <a href="#" class="btn btn-success">Saiba-Mais</a>
+      </center>
+      </div>
+
+    </div>
+  </div>
+    {%empty%}
+    {%for i in tamanho%}
+      <div class="col-12 col-lg-4 ">
+    <div class="produto card bg-primary"  name='produto' style=" width: 17rem; margin-top: 20px; margin-bottom:20px; height:27rem; border-radius:15px; padding: 5px;">
+
+      <div class="card-body">
+        <center>
+            <h6 class="text-light">Vazio</h6>
+        <h5 class="card-title text-light" style="margin-top:17rem;;"><b>Vazio</b></h5>
+
+
+
+      </center>
+      </div>
+
+    </div>
+  </div>
+    {%endfor%}
+  {%endfor%}
+</center>
+</div>
+</div>
+
+
+<style>
+ .produto{
+
+   box-shadow: 7px 3px 3px rebeccapurple;
+ }
+  .produto:hover{
+    transform: scale(1.07) !important;
+    border-radius: 20px;
+    transition: 0.6s !important ;
+  }
+
+</style>
+
+
+{%endblock%}

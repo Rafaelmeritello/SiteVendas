@@ -1,0 +1,134 @@
+{%extends 'base.html'%}
+{%block content%}
+<div class="lista container mb-5 bg-dark" style="border-radius: 5px; margin-top: 6rem;">
+  <center>
+    <h2 class="text-light" id='id_titulo'>{%block titulolista%}Produtos{%endblock%}</h2>
+<!--    botão de anunciar-->
+      {%if user.is_anonymous%}
+     <form action="\conta\login" method="GET">
+      <button class="btn btn-success" type="submit">Anunciar</button>
+     </form>
+      {%else%}
+     <form action="{%url 'add'%}" method="GET">
+      <button class="btn btn-success" type="submit">Anunciar</button>
+     </form>
+     {%endif%}
+    <!--botão de anunciar fim-->
+
+     <!--botoes -->
+    {%block filtro%}
+    <form style='max-width: 22rem;' class='mt-3' method="POST" url="{%url produtos categoria 'tudo'%}">
+      {%csrf_token%}
+      <label for='subcategoria' class="text-light">Sub-Categoria</label>
+        <select name="subcategoria" id='id_subcategoria' class="form-select">
+          <option value="selecione">Selecione</option>
+        </select>
+        <button class="btn btn-primary mt-3" type="submit">Filtrar</button>
+    </form>
+      {%endblock%}
+
+     {%block botoes%}
+
+     {%endblock%}
+     <!-- Fim-botoes -->
+ 
+<div class="row d-flex justify-content-center p-4">
+
+  {%for produto in produtos%}
+
+{%block listaproduto%}
+
+  <div class="col-12 col-lg-3 ">
+
+    <div class="produto card bg-primary"  name='produto' style=" width: 15.7rem; max-height:22rem; margin-top: 17px; margin-bottom:20px; border-radius:10px; padding: 2px;">
+
+      <div class="card-body ">
+        <center>
+          <h6 class="text-light ">{{produto.vendedor.nome}} {{produto.vendedor.sobrenome|truncatechars:9 }}</h6>
+         <div style="height:172px; width:210px; overflow: hidden">
+          <img class="card-img-top" style="border-radius: 10px;" src="{{produto.imagemprincipal.url}}" alt="Card image cap">
+         </div>
+        <h5 class=" text-light" style="margin-top:1rem;;"><b>{{produto.nome|truncatechars:21}}</b></h5>
+        <p>R$ {{produto.preco}}</p>
+        
+        <a href="{%url 'produto' produto.id%}" class="btn btn-success">Saiba-Mais</a>
+      </center>
+      </div>
+  
+    </div>
+
+  </div>
+
+    {%endblock%}
+
+    {%empty%}
+    {%for i in tamanho%}
+      <div class="col-12 col-lg-4 ">
+    <div class="produto card bg-primary"  name='produto' style=" width: 17rem; margin-top: 20px; margin-bottom:20px; height:27rem; border-radius:15px; padding: 5px;">
+
+      <div class="card-body">
+        <center>
+            <h6 class="text-light">Vazio</h6>
+        <h5 class="card-title text-light" style="margin-top:17rem;"><b>Vazio</b></h5>
+
+
+          
+      </center>
+
+      </div>
+
+    </div>
+  </div>
+
+    {%endfor%}
+    
+  {%endfor%}
+</div>
+  </center>
+  </center>
+
+  
+<!--  paginação-->
+{%block paginacao%}
+  <nav aria-label="Page navigation" class="row" >
+    <center>
+  <ul class="pagination col-12 justify-content-center">
+    {%block itenspagina%}
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+       
+      </a>
+    </li>
+    <li class="page-item bg-primary"><a class="page-link " href="#">1</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true bg-primary">&raquo;</span>
+      
+      </a>
+    </li>
+    {%endblock%}
+  </ul>
+</center>
+</nav>
+{%endblock%}
+<!--  fim -paginacão-->
+</div>
+
+
+<style>
+
+  
+  .produto:hover{
+    transform: scale(1.04) !important;
+    border-radius: 20px;
+    transition: 0.6s !important ;
+  }
+
+</style>
+
+{%block script%}
+{%endblock%}
+
+
+{%endblock%}

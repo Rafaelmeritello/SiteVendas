@@ -1,0 +1,44 @@
+{%extends 'base.html'%}
+{%load bootstrap5%}
+{%block navhome%}
+      <li class="nav-item">
+        <a class="nav-link " href="/">Home </a>
+      </li>
+{%endblock%}
+{%block navregistro%}
+      <li class="nav-item ">
+        <a class="nav-link ml-auto active" href="{%url 'criarconta'%}">Registrar</a>
+      </li>
+{%endblock%}
+
+
+
+{%block content%}
+
+
+
+
+<div class="container bg-dark w-100 " style="max-width: 40rem;;padding: 30px; height:{{tamanho}}rem; margin-top:5rem; margin-bottom:5rem; border-radius: 50px;">
+  {%if user.is_anonymous%}
+   <center> <h1 class="text-light">Registro</h1></center>
+
+<form class="text-light" method="post" action="{% url 'criarconta'%}">
+    {% if form.errors %}
+      <div class="alert alert-danger" role="alert">
+        Erro na criação, verifique as informaçoes
+      </div>
+    {% endif %}
+{%bootstrap_messages%}
+    {%csrf_token%}
+    {%bootstrap_form form%}
+    {%buttons%}
+    <center>   <button type="submit" class="btn btn-success">Cadastrar</button></center>
+    {%endbuttons%}
+</form>
+    {%else%}
+        <h1 class="text-light">Você já esta logado</h1>
+    {%endif%}
+
+</div>
+
+{%endblock%}

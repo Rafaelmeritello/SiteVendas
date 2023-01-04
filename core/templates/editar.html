@@ -1,0 +1,20 @@
+{%extends 'base.html'%}
+{%load bootstrap5%}
+{%block content%}
+<div class="container bg-dark w-100 text-light" style="max-width: 40rem;;padding: 30px; margin-top:5rem; margin-bottom:5rem; border-radius: 50px;">
+    <center><h4 class="text-light">Editar</h4></center>
+    {%if object.vendedor.user == request.user%}
+
+<form method="post">
+    {%csrf_token%}
+    {%bootstrap_form form%}
+    {%buttons%}
+    <center><button type="submit" class="btn btn-success" value="Save">Salvar</button></center>
+    {%endbuttons%}
+</form>
+    {%else%}
+    <h4 class="text-light">Este Produto não é seu</h4>
+    {%endif%}
+</div>
+
+{%endblock%}

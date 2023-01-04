@@ -1,0 +1,65 @@
+{%extends 'base_produtos.html'%}
+{% load static %}
+{%block filtro%}
+{%endblock%}
+      {%block navhome%}
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home </a>
+      </li>
+      {%endblock%}
+{%block navusuario%}
+        <a class="nav-link dropdown-toggle active" href="#" id="dropdownconta" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         {{request.user.username}}
+        </a>
+{%endblock%}
+
+{%block titulolista%}
+Meus Anuncios {{atuais}}/{{limite}}
+{%endblock%}
+
+{%block botoes%}
+<form action="{%url 'index'%}" method="GET">
+  <button class="btn btn-warning" style='margin-top: 20px;' type="submit">Planos de anuncio</button>
+</form>
+{%endblock%}
+
+{%block listaproduto%}
+  <div class="col-12 col-lg-4 ">
+      <div class="produto card bg-primary"  name='produto' style=" width: 15.7rem; height:28rem; margin-top: 17px; margin-bottom:20px; border-radius:10px; padding: 2px;">
+
+      <div class="card-body ">
+        <center>
+          <h6 class="text-light ">{{produto.vendedor.nome}} {{produto.vendedor.sobrenome|truncatechars:9 }}</h6>
+         <div style="height:175px; width:200px; overflow: hidden">
+          <img class="card-img-top" src="{{produto.imagemprincipal.url}}" alt="Card image cap">
+         </div>
+        <h5 class=" text-light"><b>{{produto.nome|truncatechars:21}}</b></h5>
+        <p>R$ {{produto.preco}}</p>
+
+
+
+      <form method="get" action="{%url 'editar' 25%}">
+          {%csrf_token%}
+          <input type="hidden"  name="id" value="{{produto.id}}">
+          <button type="submit" class="btn btn-info mt-2">Editar</button>
+      </form>
+
+      <form method="post" action="{%url 'meusprodutos'%}">
+          {%csrf_token%}
+          <input type="hidden"  name="id" value="{{produto.id}}">
+          <button type="submit" class="btn btn-success mt-2">Destacar</button>
+      </form>
+        <form method="post" action="{%url 'meusprodutos'%}">
+          {%csrf_token%}
+          <input type="hidden" id="id" name="id" value="{{produto.id}}">
+          <button type="submit" class="btn btn-danger mt-2">Remover</button>
+      </form>
+
+      </center>
+      </div>
+
+    </div>
+  </div>
+{%endblock%}
+{%block paginacao%}
+{%endblock%}

@@ -1,0 +1,76 @@
+{%extends 'base.html'%}
+{%load bootstrap5%}
+
+{%block content%}
+<div class="container mb-5 mw-50 bg-dark" style=" border-radius: 15px; margin-top: 7rem; padding: 18px;">
+    <div class="row d-flex">
+            <!--form -->
+        <div class="col-12 col-lg-8 ">
+<center><h1 class="text-light" >{{atual}}/{{limite}} Anuncios realizados</h1></center>
+
+    {%bootstrap_messages%}
+
+    <form action="{%url 'add'%}" class='text-light' method="POST" enctype="multipart/form-data">
+        {%csrf_token%}
+        {%bootstrap_form form%}
+        
+        {%buttons%}
+        <center><button class="btn btn-success mt-3" type="submit"><strong>Anunciar</strong></button></center>
+
+        {%endbuttons%}
+    </form>
+</div>
+<!-- Fim- form -->
+<!-- Regras -->
+<div class="col-12 col-lg-4">
+    <h5 class="text-danger"><strong><center>Regras Para Anuncios</center></strong></h5>
+    <ul class='text-light'>
+        <li>A TudoEm10X <strong>NÃO</strong> tem responsabilidade sobre as vendas/compras realizadas nesse site; </li>
+            </br>
+        <li>Caso o produto seja usado, é <STRONG>OBRIGATORIO</STRONG> que contenha o tempo de uso na descrição;</li>
+            </br>
+        <li>As imagens do produto devem representar claramente o que esta sendo vendido, é <strong>PROIBIDO</strong> utilizar fotos da internet para seus produtos;</li>
+  </br>
+        <li><strong>NÃO</strong> mantenha anunciado produtos caso ja tenha sido vendido; </li>
+        </br>
+        <li>As imagens <strong>DEVEM</strong> ser na vertical, para facilitar a vizualisação do produto; </li>
+    </ul>
+<!-- Fim- Regras -->
+</div>
+
+
+</div>
+    </div>
+
+
+
+{%endblock%}
+{%block script%}
+<script>
+ 
+    $(Document).ready(function(){
+       
+        $('#id_categoria').change(function(){
+            $('#id_subcategoria').find('option').remove().end()
+            $('#id_subcategoria').append(`<option value='Selecione um Item'>Selecione um Item</option>`)
+            $.ajax({
+                url:'add',
+                Type: 'GET',
+                data: {
+                    categoria: $('#id_categoria').select().val(),
+                },
+                success: function(response){
+                    subcategorias = response['subcategorias']
+                   
+                    for(i in subcategorias){
+                        s = subcategorias[i]
+                        sv = subcategorias[i].replace(' ', '-')
+                        $('#id_subcategoria').append(`<option value=${sv}>${s}</option>`)
+                    }
+                }
+         
+        })
+    })
+})
+</script>
+{%endblock%}

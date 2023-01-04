@@ -1,0 +1,148 @@
+{%load bootstrap5%}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{%block titulo%}TudoEm10{%endblock%}</title>
+    {%bootstrap_css%}
+
+</head>
+<body style='background-color: #ffdb58;'>
+
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="/">TudoEm10</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Alterna navegação">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse ustify-content-between" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+
+
+
+      {%block navhome%}
+      <li class="nav-item active">
+        <a class="nav-link active" href="/">Home </a>
+      </li>
+      {%endblock%}
+      
+       <li class="nav-item dropdown">
+        {%block navcategorias%} <a class="nav-link dropdown-toggle "  id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{%endblock%}
+          Categorias
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="{%url 'produtos' 'informatica' %}">Informatica</a>
+          <a class="dropdown-item" href="{%url 'produtos' 'telefone-celular' %}">Celular</a>
+          <a class="dropdown-item" href="{%url 'produtos' 'casa-mobilia' %}">Casa/Moveis</a>
+          <a class="dropdown-item" href="{%url 'produtos' 'saude-fitness' %}">Saude/Fitness</a>
+          <a class="dropdown-item" href="{%url 'produtos' 'veiculo' %}">Veiculos</a>
+          <a class="dropdown-item" href="{%url 'produtos' 'imovel'%}">imoveis</a>
+          <a class="dropdown-item" href="{%url 'produtos' 'jogo'%}">Jogos</a>
+        </div>
+      </li>
+      
+      {%block navcontato%}
+      <li class="nav-item">
+        <a class="nav-link " href="/">Contato </a>
+      </li>
+      {%endblock%}
+      {%block navcomofunciona%}
+      <li class="nav-item">
+        <a class="nav-link" href="/">Como funciona</a>
+      </li>
+      {%endblock%}
+
+
+
+
+<!--navbar de login-->
+
+            {%if user.is_anonymous%}
+
+
+      {%block navlogin%}
+      <li class="nav-item ">
+        <a class="nav-link ml-auto" href="\conta\login">Login</a>
+      </li>
+      {%endblock%}
+
+
+      {%block navregistro%}
+      <li class="nav-item ">
+        <a class="nav-link ml-auto" href="{%url 'criarconta'%}">Registrar</a>
+      </li>
+      {%endblock%}
+      {%else%}
+      <li class="nav-item dropdown">
+          {%block navusuario%}
+        <a class="nav-link dropdown-toggle" href="#" id="dropdownconta" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         {{request.user.username}}
+        </a>
+          {%endblock%}
+        <div class="dropdown-menu" aria-labelledby="dropdownconta">
+<!-- dropdown conta-->
+          <center>  <a class="dropdown-item" href="{%url 'meusprodutos'%}"><strong>Meus Anuncios</strong></a></center>
+        <center>  <a class="dropdown-item" href="{%url 'logout'%}" style="color:red;">Sair</a></center>
+          <!-- fim - dropdown conta-->
+        </div>
+      </li>
+      {%endif%}
+
+<!--navbar de login fim-->
+
+
+    </ul>
+
+
+
+
+  </div>
+</nav>
+
+
+{%block content%}
+
+{%endblock%}
+
+<!-- Footer -->
+<footer class="bg-dark text-center text-lg-start text-light bottom">
+  <!-- Grid container -->
+  <div class="container p-4">
+    <!--Grid row-->
+    <div class="row">
+      <!--Grid column-->
+      <center><div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+        <h5 class="text-uppercase text-center">Teste</h5>
+
+        <p class="text-center">
+       Teste
+        </p>
+      </div>
+      </center>
+      <!--Grid column-->
+    </div>
+    <!--Grid row-->
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2021 Copyright:
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+{%block script%}
+{%endblock%}
+</body>
+
+
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</html>

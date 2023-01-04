@@ -1,0 +1,22 @@
+{%extends 'base.html'%}
+{%load bootstrap5%}
+
+      {%block navhome%}
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home </a>
+      </li>
+      {%endblock%}
+{%block navusuario%}
+        <a class="nav-link dropdown-toggle active" href="#" id="dropdownconta" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         {{request.user.username}}
+        </a>
+{%endblock%}
+
+{%block content%}
+<div class="container bg-dark">
+<form>
+    {%bootstrap_form form%}
+</form>
+
+</div>
+{%endblock%}
