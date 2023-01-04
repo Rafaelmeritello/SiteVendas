@@ -1,6 +1,7 @@
 {%extends 'base_produtos.html'%}
 {% load static %}
 {%block filtro%}
+
 {%endblock%}
       {%block navhome%}
       <li class="nav-item">
@@ -38,7 +39,7 @@ Meus Anuncios {{atuais}}/{{limite}}
 
 
 
-      <form method="get" action="{%url 'editar' 25%}">
+      <form method="get" action="{%url 'editar' produto.id%}">
           {%csrf_token%}
           <input type="hidden"  name="id" value="{{produto.id}}">
           <button type="submit" class="btn btn-info mt-2">Editar</button>
@@ -60,6 +61,8 @@ Meus Anuncios {{atuais}}/{{limite}}
 
     </div>
   </div>
+
+
 {%endblock%}
 {%block paginacao%}
 {%endblock%}

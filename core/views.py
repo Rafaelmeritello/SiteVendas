@@ -1,7 +1,9 @@
+import http.client
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
-
+from django.http import HttpResponse
 from .models import Produto, Dados, Imagem
 from .forms import Produtoform, Contaform
 from django.contrib import messages
@@ -30,7 +32,8 @@ def index(request):
 
 # adicionar produto
 def formadd(request):
-
+    if request.user.is_superuser:
+        return HttpResponse('<h1>Superusuarios não podem ter anuncios</h1>')
     #verificar se usuario é anonimo
     if request.user.id == None:
         return redirect('/')
@@ -166,7 +169,7 @@ def registro(request):
             # criando usuario
             if criar:
                 try:
-                    Usuario = User(username=dados['email'], email=dados['email'])
+                    Usuario = User(username=dados['nome'], email=dados['email'])
                     Usuario.set_password(dados['senha'])
                     print(Usuario.password)
                     print(Usuario.username)
@@ -202,7 +205,8 @@ def logout(request):
 
 #meus produtos
 def meusprodutos(request):
-
+    if request.user.is_superuser:
+        return HttpResponse('<h1>Superusuarios não podem ter anuncios</h1>')
     if request.user.id is None:
         return redirect('/')
     dados = Dados.objects.all().get(user=request.user)

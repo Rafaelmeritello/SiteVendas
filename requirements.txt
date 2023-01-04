@@ -5,11 +5,14 @@ chardet==4.0.0
 Django==3.2
 django-bootstrap-icons==0.5.5
 django-bootstrap-v5==1.0.2
-
+django-cleanup==6.0.0
+django-multiupload==0.6.1
 idna==2.10
 Pillow==8.2.0
 pytz==2021.1
 requests==2.25.1
 soupsieve==2.2.1
 sqlparse==0.4.1
+tzdata==2022.7
 urllib3==1.26.4
+whitenoise==6.3.0

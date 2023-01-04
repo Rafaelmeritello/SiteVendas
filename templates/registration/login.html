@@ -21,14 +21,14 @@
     <form method="post">
 
     {% if form.errors %}
-        <p class="text-danger">Email ou Senha invalidos</p>
+        <p class="text-danger">Usuario ou Senha invalidos</p>
     {% endif %}
 
 
         {%csrf_token%}
         <div class="mb-3">
-          <label for="username" class="text-light form-label">Email</label>
-          <input type="email" class="form-control" id="username" name="username" >
+          <label for="username" class="text-light form-label">Usuario</label>
+          <input type="text" class="form-control" id="username" name="username" >
         </div>
         <div class="mb-3">
           <label for="password" class="text-light form-label">Senha</label>
